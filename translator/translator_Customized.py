@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from datetime import datetime
+import winsound
 import os
 
 # Import namespaces
@@ -56,11 +57,15 @@ def main():
 
 def Translate(targetLanguage):
     translation = ''
+    freq=1000
+    dur=500
 
      # Translate speech
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
     translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config)
     print("Speak now...")
+    winsound.Beep(freq,dur)
+    
     result = translator.recognize_once_async().get()
     print('Translating "{}"'.format(result.text))
     translation = result.translations[targetLanguage]
